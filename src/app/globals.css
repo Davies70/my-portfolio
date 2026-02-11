@@ -1,9 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* 1. LENIS SMOOTH SCROLL (Mandatory Setup) 
-   Without this, Lenis will conflict with native browser scrolling. */
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
+  --font-display: 'Clash Display', 'Clash Display Fallback', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #0a192f;
+  --color-background-alt: #112240;
+  --color-foreground: #ccd6f6;
+  --color-foreground-muted: #8892b0;
+  --color-accent: #64ffda;
+  --color-accent-muted: rgba(100, 255, 218, 0.1);
+  --color-card: #112240;
+  --color-card-foreground: #ccd6f6;
+  --color-border: rgba(136, 146, 176, 0.15);
+
+  --radius: 0.75rem;
+}
+
+/* Lenis Smooth Scroll */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -25,55 +40,41 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* 2. BASE STYLES & RESET */
-:root {
-  /* Core Colors (Matching your design) */
-  --background: #0b0c10;
-  --foreground: #e0e0e0;
-  --accent: #c5f82a; /* Electric Lime */
-}
-
+/* Base Styles */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  /* Optimize font rendering for dark mode */
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Prevent horizontal scroll issues */
   overflow-x: hidden;
   width: 100%;
 }
 
-/* 3. CUSTOM TEXT SELECTION
-   This is a subtle detail that makes the site feel "premium".
-   When users highlight text, it glows with your accent color. */
+/* Text Selection */
 ::selection {
-  background-color: var(--accent);
-  color: var(--background);
+  background-color: var(--color-accent);
+  color: var(--color-background);
 }
 
-/* 4. CUSTOM SCROLLBAR (Chrome/Safari/Edge)
-   Hides the default clunky scrollbar and adds a sleek one. */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--color-background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
-  border-radius: 4px;
+  background: var(--color-background-alt);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: var(--color-foreground-muted);
 }
 
-/* 5. UTILITY: NOISE OVERLAY
-   This creates the "film grain" texture. 
-   Add <div className="noise-overlay" /> in your Layout.tsx */
+/* Noise Overlay */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -81,30 +82,13 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 9999;
-  background-image: url('/noise.png'); /* Ensure this file is in /public */
-  opacity: 0.05;
+  z-index: 50;
+  opacity: 0.03;
   mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
 }
 
-/* 6. UTILITY: HIDE CURSOR (If using Custom Cursor) */
-/* Only hide default cursor on devices that actually have a mouse */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none; /* We will use our custom circle div instead */
-  }
-
-  /* Re-enable pointer events for links/buttons so they remain clickable */
-  a,
-  button,
-  input,
-  textarea {
-    cursor: none;
-  }
-}
-
-/* 7. ANIMATION UTILITIES */
-/* A standard "fade-in-up" utility if you need it outside Framer Motion */
+/* Animation Utilities */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -119,21 +103,3 @@ body {
 .animate-fade-in {
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
-.noise-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  /* CRITICAL FIXES */
-  pointer-events: none; /* Allows clicks to pass through to text/buttons */
-  z-index: 50; /* Sits above background, but below cursor/modals */
-  opacity: 0.05; /* Very transparent (5%) */
-  mix-blend-mode: overlay; /* Blends with colors instead of blocking them */
-
-  /* The SVG Noise Pattern */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-}
-

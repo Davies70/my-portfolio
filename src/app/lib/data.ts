@@ -2,71 +2,68 @@ export const projects = [
   {
     title: 'DocuGuard',
     description:
-      "An automated RAG system that audits technical documentation against changelogs to detect and 'self-heal' breaking changes using Groq/Llama 3.",
-    src: '/images/docuguard.png',
-    link: 'https://docu-guard-self-healing-rag.vercel.app/',
+      'An automated RAG system that audits technical documentation against changelogs to detect and self-heal breaking changes. Uses Groq-powered Llama 3 for intelligent document analysis and correction.',
     github: 'https://github.com/Davies70/DocuGuard-Self-Healing-RAG',
-    color: '#BBACAF', // Muted Rose/Grey
-    tech: ['Next.js', 'FastAPI', 'Python', 'LangChain', 'Llama 3'],
+    link: 'https://docu-guard-self-healing-rag.vercel.app/',
+    tech: ['Next.js', 'FastAPI', 'Python', 'LangChain', 'Llama 3', 'Groq'],
   },
   {
     title: 'Secure File Pipeline',
     description:
-      'Full-stack serverless application for securely uploading, optimizing, and managing files. Features a Next.js dashboard and an AWS Lambda/S3 backend.',
-    src: '/images/secure-file-processing.png',
-    link: 'https://secure-file-processing-ui.vercel.app/',
+      'Full-stack serverless application for securely uploading, optimizing, and managing files at scale. Features a Next.js dashboard with real-time status and an AWS Lambda/S3 processing backend.',
     github: 'https://github.com/Davies70/secure-file-upload',
-    color: '#977F6D', // Earthy Brown
-    tech: ['Next.js', 'AWS Lambda', 'S3', 'DynamoDB', 'Tailwind'],
+    link: 'https://secure-file-processing-ui.vercel.app/',
+    tech: ['Next.js', 'AWS Lambda', 'S3', 'DynamoDB', 'TypeScript', 'Tailwind'],
   },
   {
     title: 'CheapBites',
     description:
-      'Geolocation-based discovery app for affordable restaurants nearby. Integrates Foursquare Places API and Leaflet maps for interactive filtering.',
-    src: '/images/cheapbites1.png',
-    link: 'https://cheapbites.vercel.app',
+      'Geolocation-based discovery app for affordable restaurants nearby. Integrates Foursquare Places API with interactive Leaflet maps for radius-based filtering and sorting.',
     github: 'https://github.com/Davies70/cheapbites',
-    color: '#C2491D', // Deep Orange
-    tech: ['Next.js', 'TypeScript', 'MongoDB', 'Leaflet'],
+    link: 'https://cheapbites.vercel.app',
+    tech: ['Next.js', 'TypeScript', 'MongoDB', 'Leaflet', 'REST API'],
   },
   {
     title: 'ShopApocalypse',
     description:
-      'A parody eCommerce experience for doomsday gear. Showcases complex UI animation and immersive storytelling using Framer Motion and GSAP.',
-    src: '/images/shopapo.png',
-    link: 'https://shopapocalypse.netlify.app/',
+      'A parody eCommerce experience for doomsday gear. Showcases complex scroll-driven animation, immersive storytelling, and advanced motion design with Framer Motion and GSAP.',
     github: 'https://github.com/Davies70/shopapocalypse',
-    color: '#706D63', // Tactical Green/Grey
-    tech: ['React', 'Framer Motion', 'GSAP', 'TypeScript'],
+    link: 'https://shopapocalypse.netlify.app/',
+    tech: ['React', 'Framer Motion', 'GSAP', 'TypeScript', 'Tailwind'],
   },
   {
     title: 'ThrillerFiend',
     description:
-      'Tracking platform for thriller fans integrating Google Books & NYT APIs. Features user ratings, reading logs, and Firebase persistence.',
-    src: '/images/ThrillerFiend2.png',
-    link: 'https://thrillerfiend.netlify.app',
+      'Tracking platform for thriller fans integrating Google Books and NYT APIs. Features user ratings, reading logs, wishlists, and Firebase-backed persistence.',
     github: 'https://github.com/Davies70/ThrillerFiend',
-    color: '#B62429', // Blood Red
-    tech: ['React', 'Firebase', 'MUI', 'Rest API'],
+    link: 'https://thrillerfiend.netlify.app',
+    tech: ['React', 'Firebase', 'Material UI', 'REST API', 'Node.js'],
   },
   {
-    title: 'InventoryManager API',
+    title: 'Inventory Manager API',
     description:
-      'Serverless REST API for managing inventory at scale. Supports full CRUD operations and secure IAM-based access via AWS Lambda and DynamoDB.',
-    src: '/images/inventory.png', // Make sure to add a placeholder image if you don't have one!
-    link: '', // No external link provided in original data
+      'Serverless REST API for managing product inventory at scale. Supports full CRUD operations with DynamoDB, IAM-based access control, and automated deployment via AWS SAM.',
     github: 'https://github.com/Davies70/inventory-manager',
-    color: '#232F3E', // AWS Dark Blue
-    tech: ['AWS Lambda', 'API Gateway', 'DynamoDB', 'Serverless'],
+    link: '',
+    tech: ['AWS Lambda', 'API Gateway', 'DynamoDB', 'Serverless', 'Node.js'],
   },
-  {
-    title: 'Sumbot',
-    description:
-      'Browser-based AI text summarizer using frequency-based scoring and Graph-based PageRank to extract key concepts from long-form text.',
-    src: '/images/sumbot.png', // Placeholder needed
-    link: 'https://sumbot.netlify.app',
-    github: 'https://github.com/Davies70/sumbot',
-    color: '#4A90E2', // Soft Blue
-    tech: ['HTML', 'CSS', 'JavaScript', 'Algorithms'],
-  },
+];
+
+export const skills = [
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Node.js',
+  'Python',
+  'AWS',
+  'Docker',
+  'PostgreSQL',
+  'MongoDB',
+  'DynamoDB',
+  'Tailwind CSS',
+  'Framer Motion',
+  'Git',
+  'REST APIs',
+  'GraphQL',
 ];

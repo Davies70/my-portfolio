@@ -1,117 +1,95 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import MagneticButton from '@/components/ui/MagneticButton';
+
+const socials = [
+  {
+    name: 'GitHub',
+    href: 'https://github.com/Davies70',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+      </svg>
+    ),
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/alexdavies',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/alexdavies_dev',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+      </svg>
+    ),
+  },
+];
 
 export default function Footer() {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'end end'],
-  });
-
-  // Parallax Effect: The footer moves slightly slower than the scroll
-  const y = useTransform(scrollYProgress, [0, 1], [-100, 0]);
-
-  // Dynamic Time Logic
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    // Update time every second
-    const updateTime = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-          timeZone: 'Europe/London', // Change to your timezone
-        }),
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <footer
-      ref={container}
-      className='relative h-[800px] bg-[#0B0C10] flex flex-col items-center justify-center overflow-hidden'
-      style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
-    >
-      <div className='relative h-[calc(100vh+800px)] -top-[100vh]'>
-        <motion.div
-          style={{ y }}
-          className='h-[800px] sticky top-[calc(100vh-800px)] px-12 flex flex-col justify-between py-20'
+    <footer className="py-8 relative">
+      {/* Side Social Icons (fixed on desktop) */}
+      <div className="hidden lg:flex fixed bottom-0 left-8 z-50 flex-col items-center gap-6 after:content-[''] after:w-px after:h-24 after:bg-foreground-muted/30">
+        {socials.map((social) => (
+          <Link
+            key={social.name}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.name}
+            className="text-foreground-muted hover:text-accent hover:-translate-y-1 transition-all duration-200"
+          >
+            {social.icon}
+          </Link>
+        ))}
+      </div>
+
+      {/* Side Email (fixed on desktop) */}
+      <div className="hidden lg:flex fixed bottom-0 right-8 z-50 flex-col items-center gap-6 after:content-[''] after:w-px after:h-24 after:bg-foreground-muted/30">
+        <Link
+          href="mailto:hello@alexdavies.dev"
+          className="font-mono text-xs text-foreground-muted hover:text-accent hover:-translate-y-1 transition-all duration-200"
+          style={{ writingMode: 'vertical-rl' }}
         >
-          {/* TOP SECTION: CTA */}
-          <div className='flex flex-col items-center justify-center flex-grow gap-10'>
-            <h2 className='text-[12vw] leading-[0.8] font-bold font-display text-center text-[#E0E0E0]'>
-              LET`S <br /> TALK
-            </h2>
+          hello@alexdavies.dev
+        </Link>
+      </div>
 
-            <div className='relative z-20'>
-              <Link href='mailto:hello@alexdavies.com'>
-                <MagneticButton
-                  strength={0.3}
-                  className='w-48 h-48 rounded-full bg-[#C5F82A] text-[#0B0C10] border-none flex items-center justify-center text-xl font-bold hover:scale-110 transition-transform duration-500'
-                >
-                  Email Me
-                </MagneticButton>
-              </Link>
-            </div>
-          </div>
+      {/* Mobile Socials */}
+      <div className="lg:hidden flex justify-center gap-6 mb-6">
+        {socials.map((social) => (
+          <Link
+            key={social.name}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.name}
+            className="text-foreground-muted hover:text-accent transition-colors"
+          >
+            {social.icon}
+          </Link>
+        ))}
+      </div>
 
-          {/* BOTTOM SECTION: INFO */}
-          <div className='flex flex-col md:flex-row justify-between items-end w-full border-t border-[#E0E0E0]/20 pt-10 mt-20'>
-            {/* Socials */}
-            <div className='flex flex-col gap-4'>
-              <h3 className='uppercase tracking-widest text-xs text-[#E0E0E0]/50'>
-                Socials
-              </h3>
-              <div className='flex gap-6'>
-                {['LinkedIn', 'GitHub', 'Instagram', 'Twitter'].map(
-                  (social, i) => (
-                    <Link
-                      key={i}
-                      href='#'
-                      className='text-[#E0E0E0] hover:text-[#C5F82A] transition-colors text-sm uppercase tracking-wider relative group'
-                    >
-                      {social}
-                      <span className='absolute -bottom-1 left-0 w-0 h-[1px] bg-[#C5F82A] transition-all group-hover:w-full' />
-                    </Link>
-                  ),
-                )}
-              </div>
-            </div>
-
-            {/* Time & Location */}
-            <div className='flex flex-col gap-4 text-right mt-10 md:mt-0'>
-              <h3 className='uppercase tracking-widest text-xs text-[#E0E0E0]/50'>
-                Location & Time
-              </h3>
-              <p className='text-[#E0E0E0] text-sm font-medium'>
-                London, UK <br />
-                <span className='text-[#C5F82A]'>{time} GMT</span>
-              </p>
-            </div>
-
-            {/* Copyright */}
-            <div className='flex flex-col gap-4 text-right hidden md:flex'>
-              <h3 className='uppercase tracking-widest text-xs text-[#E0E0E0]/50'>
-                Version
-              </h3>
-              <p className='text-[#E0E0E0]/40 text-sm'>2025 © Edition</p>
-            </div>
-          </div>
-
-          {/* BACKGROUND DECORATION */}
-          <div className='absolute bottom-0 left-0 w-full h-full overflow-hidden pointer-events-none z-[-1]'>
-            <div className='absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#C5F82A]/5 rounded-full blur-[100px]' />
-          </div>
-        </motion.div>
+      {/* Credit Line */}
+      <div className="text-center">
+        <Link
+          href="https://github.com/Davies70"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs text-foreground-muted hover:text-accent transition-colors leading-relaxed"
+        >
+          <span className="block">Designed & Built by Alex Davies</span>
+        </Link>
       </div>
     </footer>
   );

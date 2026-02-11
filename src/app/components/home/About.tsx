@@ -1,94 +1,103 @@
 'use client';
+
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { skills } from '@/lib/data';
 
 export default function About() {
   const container = useRef(null);
 
-  // 1. Scroll Progress Logic
-  // We track when the container enters the viewport
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start 0.9', 'start 0.25'],
   });
 
-  // 2. Animations based on Scroll
-  // As you scroll down, the opacity goes 0 -> 1
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  // As you scroll down, the text moves up 50px -> 0px (Parallax lift)
-  const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
 
   return (
     <section
       ref={container}
-      className='min-h-[80vh] flex items-center justify-center px-6 md:px-20 py-24 relative z-10 bg-[#0B0C10]'
+      id="about"
+      className="py-24 md:py-32 relative"
     >
-      <motion.div style={{ opacity, y }} className='max-w-5xl w-full'>
-        {/* BIG INTRO TEXT */}
-        <h2 className='text-3xl md:text-5xl font-light leading-tight text-[#E0E0E0] mb-20'>
-          I’m <span className='text-[#C5F82A] font-medium'>Alex Davies</span>, a
-          software engineer who bridges the gap between
-          <span className='italic font-serif opacity-70 px-2'>
-            robust backend logic
-          </span>{' '}
-          and
-          <span className='italic font-serif opacity-70 px-2'>
-            fluid frontend motion
-          </span>
-          .
-        </h2>
+      <div className="mx-auto max-w-6xl px-6 md:px-12">
+        <motion.div style={{ opacity, y }}>
+          {/* Section Header */}
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground whitespace-nowrap">
+              <span className="font-mono text-accent text-lg md:text-xl mr-2">
+                01.
+              </span>
+              About Me
+            </h2>
+            <div className="h-px bg-border flex-1 max-w-xs" />
+          </div>
 
-        {/* DETAILS GRID */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-[#E0E0E0]/20 pt-10'>
-          {/* COLUMN 1: THE STACK */}
-          <div className='flex flex-col gap-6'>
-            <h3 className='uppercase tracking-[0.2em] text-xs text-[#E0E0E0]/50 font-medium'>
-              The Stack
-            </h3>
-            <p className='text-lg md:text-xl text-[#E0E0E0]/80 font-light leading-relaxed'>
-              Currently obsessed with the <strong>Next.js</strong> ecosystem. I
-              build scalable applications using <strong>TypeScript</strong>,{' '}
-              <strong>Tailwind</strong>, and <strong>AWS Serverless</strong>{' '}
-              architecture.
-            </p>
+          {/* Content Grid */}
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16">
+            {/* Text Content */}
+            <div className="flex-1 flex flex-col gap-4">
+              <p className="text-foreground-muted leading-relaxed">
+                {"I'm a fullstack software engineer who enjoys building products that live at the intersection of thoughtful design and solid engineering. My focus is on creating web applications that are fast, accessible, and built to last."}
+              </p>
+              <p className="text-foreground-muted leading-relaxed">
+                {'Over the past few years, I\'ve worked across the stack\u2014from crafting pixel-perfect frontends with '}
+                <span className="text-accent">React</span>
+                {' and '}
+                <span className="text-accent">Next.js</span>
+                {' to building serverless backends on '}
+                <span className="text-accent">AWS</span>
+                {'. I\'ve contributed to '}
+                <span className="text-accent">RAG-based AI systems</span>
+                {', geolocation platforms, and secure file processing pipelines.'}
+              </p>
+              <p className="text-foreground-muted leading-relaxed">
+                {"Currently based in Germany, I'm looking for opportunities to contribute to ambitious engineering teams building meaningful products."}
+              </p>
 
-            {/* Tech Tags */}
-            <div className='flex flex-wrap gap-2 mt-2'>
-              {[
-                'Next.js 14',
-                'React',
-                'TypeScript',
-                'Tailwind CSS',
-                'Python',
-                'Node.js',
-                'AWS',
-                'Framer Motion',
-                'PostgreSQL',
-              ].map((tech, i) => (
-                <span
-                  key={i}
-                  className='px-4 py-2 rounded-full border border-[#E0E0E0]/10 text-xs text-[#E0E0E0]/60 hover:border-[#C5F82A]/50 hover:text-[#C5F82A] transition-colors cursor-default'
-                >
-                  {tech}
-                </span>
-              ))}
+              {/* Tech Grid */}
+              <div className="mt-6">
+                <h3 className="text-foreground text-sm font-medium mb-4">
+                  Technologies I work with:
+                </h3>
+                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-2">
+                  {skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="flex items-center gap-2 text-foreground-muted text-sm"
+                    >
+                      <span className="text-accent text-xs">{'>'}</span>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Photo */}
+            <div className="flex-shrink-0">
+              <div className="relative group w-64 h-64 md:w-72 md:h-72 mx-auto md:mx-0">
+                {/* Border offset decoration */}
+                <div className="absolute inset-0 border-2 border-accent rounded-lg translate-x-4 translate-y-4 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300" />
+                {/* Image container */}
+                <div className="relative w-full h-full rounded-lg overflow-hidden bg-accent/20">
+                  <Image
+                    src="/images/me.jpg"
+                    alt="Alex Davies - Fullstack Engineer"
+                    fill
+                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                    sizes="(max-width: 768px) 256px, 288px"
+                  />
+                  {/* Tint overlay */}
+                  <div className="absolute inset-0 bg-accent/10 hover:bg-transparent transition-colors duration-300" />
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* COLUMN 2: THE GOAL */}
-          <div className='flex flex-col gap-6'>
-            <h3 className='uppercase tracking-[0.2em] text-xs text-[#E0E0E0]/50 font-medium'>
-              The Methodology
-            </h3>
-            <p className='text-lg md:text-xl text-[#E0E0E0]/80 font-light leading-relaxed'>
-              I don`t just write code; I craft <strong>digital products</strong>
-              . My focus is on performance, accessibility, and creating user
-              interfaces that feel `alive`` through micro-interactions and
-              smooth transitions.
-            </p>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }
