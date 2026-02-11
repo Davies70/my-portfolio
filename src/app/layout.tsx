@@ -43,7 +43,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${clash.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="font-sans antialiased">
+      <body className="bg-[#fafafa] text-[#0a0a0a] font-sans antialiased">
         <SmoothScroll>
           <div className="noise-overlay" />
           {children}
