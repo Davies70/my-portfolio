@@ -1,87 +1,71 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.33, 1, 0.68, 1] },
-  },
-};
+import { useEffect, useRef } from 'react';
+import MagneticButton from '@/components/ui/MagneticButton';
 
 export default function Hero() {
+  const nameRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (nameRef.current) {
+      observer.observe(nameRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden">
-      <div className="mx-auto max-w-6xl px-6 md:px-12 w-full py-32 md:py-0">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col gap-6"
-        >
+    <section className="min-h-screen flex items-center justify-center px-6 lg:px-16">
+      <div className="max-w-7xl w-full py-20">
+        <div className="max-w-4xl space-y-8">
           {/* Greeting */}
-          <motion.p
-            variants={item}
-            className="font-mono text-accent text-sm md:text-base"
-          >
-            Hi, my name is
-          </motion.p>
+          <p className="text-[13px] font-mono text-foreground-muted tracking-wide">
+            Good afternoon
+          </p>
 
           {/* Name */}
-          <motion.h1
-            variants={item}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[0.95] text-balance"
+          <h1
+            ref={nameRef}
+            className="text-6xl md:text-8xl lg:text-9xl font-display font-bold text-foreground leading-[0.95] tracking-tight opacity-0"
           >
-            Alex Davies.
-          </motion.h1>
-
-          {/* Tagline */}
-          <motion.h2
-            variants={item}
-            className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-foreground-muted leading-[1.1] text-balance"
-          >
-            I build things for the web.
-          </motion.h2>
+            {"I'm an independent"}
+            <br />
+            <span className="italic">fullstack engineer.</span>
+          </h1>
 
           {/* Description */}
-          <motion.p
-            variants={item}
-            className="max-w-xl text-foreground-muted text-base md:text-lg leading-relaxed mt-2"
-          >
-            {"I'm a fullstack software engineer based in Germany, specializing in building robust, user-centric web applications. Currently focused on creating scalable products with "}
-            <span className="text-accent">React</span>
-            {', '}
-            <span className="text-accent">Next.js</span>
-            {', and '}
-            <span className="text-accent">cloud-native architectures</span>
-            {'.'}
-          </motion.p>
+          <div className="max-w-2xl space-y-4 pt-4">
+            <p className="text-[15px] md:text-base text-foreground-muted leading-relaxed">
+              I build accessible, performant web applications with modern technologies.
+              Specializing in React, Next.js, and TypeScript with a focus on clean
+              architecture and user experience.
+            </p>
+          </div>
 
           {/* CTA */}
-          <motion.div variants={item} className="mt-6">
-            <Link
-              href="#projects"
-              className="inline-block px-7 py-4 border border-accent text-accent font-mono text-sm rounded hover:bg-accent-muted transition-colors duration-300"
-            >
-              View My Work
-            </Link>
-          </motion.div>
-        </motion.div>
+          <div className="pt-6">
+            <MagneticButton>
+              <a
+                href="#projects"
+                className="inline-block px-6 py-3 border border-foreground text-foreground text-[13px] font-mono hover:bg-foreground hover:text-background transition-all"
+              >
+                View selected work →
+              </a>
+            </MagneticButton>
+          </div>
+        </div>
       </div>
-
-      {/* Subtle background gradient */}
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-accent/[0.03] rounded-full blur-[120px] pointer-events-none" />
     </section>
   );
 }

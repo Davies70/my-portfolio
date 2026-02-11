@@ -5,17 +5,17 @@
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
   --font-display: 'Clash Display', 'Clash Display Fallback', ui-sans-serif, system-ui, sans-serif;
 
-  --color-background: #0a192f;
-  --color-background-alt: #112240;
-  --color-foreground: #ccd6f6;
-  --color-foreground-muted: #8892b0;
-  --color-accent: #64ffda;
-  --color-accent-muted: rgba(100, 255, 218, 0.1);
-  --color-card: #112240;
-  --color-card-foreground: #ccd6f6;
-  --color-border: rgba(136, 146, 176, 0.15);
+  --color-background: #fafafa;
+  --color-background-alt: #ffffff;
+  --color-foreground: #0a0a0a;
+  --color-foreground-muted: #525252;
+  --color-accent: #6366f1;
+  --color-accent-muted: rgba(99, 102, 241, 0.1);
+  --color-card: #ffffff;
+  --color-card-foreground: #0a0a0a;
+  --color-border: #e5e5e5;
 
-  --radius: 0.75rem;
+  --radius: 0.25rem;
 }
 
 /* Lenis Smooth Scroll */
@@ -52,13 +52,13 @@ body {
 
 /* Text Selection */
 ::selection {
-  background-color: var(--color-accent);
+  background-color: var(--color-foreground);
   color: var(--color-background);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -66,8 +66,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-background-alt);
-  border-radius: 3px;
+  background: var(--color-border);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -83,7 +83,7 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.03;
+  opacity: 0.015;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
 }

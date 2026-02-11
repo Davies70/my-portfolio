@@ -5,21 +5,18 @@ import ProjectCard from '@/components/ProjectCard';
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 md:py-32 relative">
-      <div className="mx-auto max-w-6xl px-6 md:px-12">
-        {/* Section Header */}
-        <div className="flex items-center gap-4 mb-16">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground whitespace-nowrap">
-            <span className="font-mono text-accent text-lg md:text-xl mr-2">
-              02.
-            </span>
-            Projects
+    <section id="projects" className="py-32 px-6 lg:px-16 bg-background-alt">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Label */}
+        <div className="mb-16">
+          <h2 className="text-[13px] font-mono text-foreground-muted mb-2">
+            Selected work
           </h2>
-          <div className="h-px bg-border flex-1 max-w-xs" />
+          <div className="h-px w-full bg-border" />
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} index={i} />
           ))}
